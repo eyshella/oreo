@@ -6,7 +6,7 @@ type Polygon struct {
 	Vertices []Point
 }
 
-func NewPolygon(n int) Polygon {
+func NewRegPolygon(n int) Polygon {
 	vertices := make([]Point, 0)
 	for k := 0; k < n; k++ {
 		vertice := Point{
