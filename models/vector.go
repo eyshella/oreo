@@ -34,11 +34,15 @@ func (v Vector) Subtract(c Vector) *Vector {
 	return &v
 }
 
-func (v Vector) Multiply(c float64) *Vector {
+func (v Vector) MultiplyOnScalar(c float64) *Vector {
 	if v.Length() == 0 {
 		return nil
 	}
 	v.To.X = c*(v.To.X-v.From.X) + v.From.X
 	v.To.Y = c*(v.To.Y-v.From.Y) + v.From.Y
 	return &v
+}
+
+func (v Vector) ScalarMultiplyOnVector(c Vector) float64 {
+	return (v.To.X-v.From.X)*(c.To.X-c.From.X) + (v.To.Y-v.From.Y)*(c.To.Y-c.From.Y)
 }

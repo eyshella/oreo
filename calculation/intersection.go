@@ -5,11 +5,17 @@ import (
 	"oreo/models"
 )
 
-func FindIntersectionRayAndPolygon(start models.Point, direction models.Vector, polygon models.Polygon) models.Point {
-	return models.Point{
-		X: 0,
-		Y: 0,
+func FindIntersectionRayAndPolygon(ray models.Vector, polygon models.Polygon) *models.Point {
+	for k := 0; k < len(polygon.Vertices)-1; k++ {
+		intersection := FindIntersectionOfRayAndSection(ray, models.Vector{
+			From: polygon.Vertices[k],
+			To:   polygon.Vertices[k+1],
+		})
+		if intersection != nil {
+			return intersection
+		}
 	}
+	return nil
 }
 
 func FindIntersectionOfRayAndSection(ray models.Vector, section models.Vector) *models.Point {
@@ -42,5 +48,5 @@ func FindIntersectionOfRayAndSection(ray models.Vector, section models.Vector) *
 	if sectionRatio < 0 || sectionRatio > 1 || rayRatio <= 0 {
 		return nil
 	}
-	return &section.Multiply(sectionRatio).To
+	return &section.MultiplyOnScalar(sectionRatio).To
 }
