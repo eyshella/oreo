@@ -35,3 +35,20 @@ func ReflectFromSection(ray models.Vector, section models.Vector) *models.Vector
 	}
 	return &result
 }
+
+func ReflectFromPolygonVertice(ray models.Vector, polygon models.Polygon, k int) *models.Vector {
+	var previousSection models.Vector
+	var nextSection models.Vector
+	vertice := polygon.Vertices[k]
+	if k == 0 {
+		previousSection = models.NewVector(vertice, polygon.Vertices[len(polygon.Vertices)-1])
+		nextSection = models.NewVector(vertice, polygon.Vertices[1])
+	} else if k == len(polygon.Vertices)-1 {
+		previousSection = models.NewVector(vertice, polygon.Vertices[k-1])
+		nextSection = models.NewVector(vertice, polygon.Vertices[0])
+	} else {
+		previousSection = models.NewVector(vertice, polygon.Vertices[k-1])
+		nextSection = models.NewVector(vertice, polygon.Vertices[k+1])
+	}
+	return ReflectFromSection(ray, models.NewVector(models.NewPoint(previousSection.To.X-nextSection.To.X+vertice.X, previousSection.To.Y-nextSection.To.Y+vertice.Y), models.NewPoint(nextSection.To.X-previousSection.To.X+vertice.X, nextSection.To.Y-previousSection.To.Y+vertice.Y)))
+}
