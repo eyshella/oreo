@@ -1,5 +1,7 @@
 package models
 
+import "fmt"
+
 type Point struct {
 	X float64
 	Y float64
@@ -20,4 +22,12 @@ func (p *Point) Add(c Point) {
 func (p *Point) Subtract(c Point) {
 	p.X -= c.X
 	p.Y -= c.Y
+}
+
+func (p Point) Equal(c Point) bool {
+	return p.X == c.X && p.Y == c.Y
+}
+
+func (p Point) ToString() string {
+	return fmt.Sprintf("X: %f, Y: %f", p.X, p.Y)
 }

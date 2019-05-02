@@ -1,6 +1,9 @@
 package models
 
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 type Vector struct {
 	From Point
@@ -45,4 +48,8 @@ func (v Vector) MultiplyOnScalar(c float64) *Vector {
 
 func (v Vector) ScalarMultiplyOnVector(c Vector) float64 {
 	return (v.To.X-v.From.X)*(c.To.X-c.From.X) + (v.To.Y-v.From.Y)*(c.To.Y-c.From.Y)
+}
+
+func (v Vector) ToString() string {
+	return fmt.Sprintf("From: %s, To: %s", v.From.ToString(), v.To.ToString())
 }

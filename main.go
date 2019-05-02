@@ -10,12 +10,12 @@ import (
 
 func main() {
 	log.Println("App started!")
-	polygon := models.NewRegPolygon(4)
+	polygon := models.NewRegPolygon(3)
 	for _, v := range polygon.Vertices {
 		log.Printf("X:%f Y:%f", v.X, v.Y)
 	}
-	reflection := calculation.ReflectFromPolygonVertice(models.Vector{From: models.Point{X: 0, Y: 0}, To: models.Point{X: 1, Y: 0}}, polygon, 0)
-	log.Printf("From: X:%f Y:%f ; To: X:%f Y:%f", reflection.From.X, reflection.From.Y, reflection.To.X, reflection.To.Y)
+	points, intersections := calculation.Walk(models.NewPoint(0, 0), polygon, 1000)
+	log.Printf("Intersection/Steps = %d", intersections/len(points))
 	fmt.Println("Press Enter to close")
 	helpers.ReadFromConsole()
 	log.Println("App finished!")
