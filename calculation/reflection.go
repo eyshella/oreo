@@ -1,14 +1,17 @@
 package calculation
 
 import (
+	"log"
 	"math"
 	"oreo/models"
 )
 
 func ReflectFromSection(ray models.Vector, section models.Vector) *models.Vector {
+	log.Printf("ReflectFromSection started. Params: ray: %s, section: %s", ray.ToString(), section.ToString())
 	intersection := FindIntersectionOfRayAndSection(ray, section)
 	var result models.Vector
 	if intersection == nil {
+		log.Printf("ReflectFromSection finished. Return: nill")
 		return nil
 	}
 	ray = models.NewVector(models.NewPoint(ray.From.X-ray.To.X+intersection.X, ray.From.Y-ray.To.Y+intersection.Y), *intersection)
@@ -33,10 +36,12 @@ func ReflectFromSection(ray models.Vector, section models.Vector) *models.Vector
 			}
 		}
 	}
+	log.Printf("ReflectFromSection finished. Return: %s", result.ToString())
 	return &result
 }
 
 func ReflectFromPolygonVertice(ray models.Vector, polygon models.Polygon, k int) *models.Vector {
+	log.Printf("ReflectFromPolygonVertice started. Params: ray: %s, polygon: %s, k: %d", ray.ToString(), polygon.ToString(), k)
 	var previousSection models.Vector
 	var nextSection models.Vector
 	vertice := polygon.Vertices[k]
@@ -50,5 +55,11 @@ func ReflectFromPolygonVertice(ray models.Vector, polygon models.Polygon, k int)
 		previousSection = models.NewVector(vertice, polygon.Vertices[k-1])
 		nextSection = models.NewVector(vertice, polygon.Vertices[k+1])
 	}
-	return ReflectFromSection(ray, models.NewVector(models.NewPoint(previousSection.To.X-nextSection.To.X+vertice.X, previousSection.To.Y-nextSection.To.Y+vertice.Y), models.NewPoint(nextSection.To.X-previousSection.To.X+vertice.X, nextSection.To.Y-previousSection.To.Y+vertice.Y)))
+	result := ReflectFromSection(ray, models.NewVector(models.NewPoint(previousSection.To.X-nextSection.To.X+vertice.X, previousSection.To.Y-nextSection.To.Y+vertice.Y), models.NewPoint(nextSection.To.X-previousSection.To.X+vertice.X, nextSection.To.Y-previousSection.To.Y+vertice.Y)))
+	if result != nil {
+		log.Printf("ReflectFromPolygonVertice finished. Return: %s", result.ToString())
+	} else {
+		log.Printf("ReflectFromPolygonVertice finished. Return: nil")
+	}
+	return result
 }

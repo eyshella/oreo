@@ -1,6 +1,9 @@
 package models
 
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 type Polygon struct {
 	Vertices []Point
@@ -18,4 +21,12 @@ func NewRegPolygon(n int) Polygon {
 	return Polygon{
 		Vertices: vertices,
 	}
+}
+
+func (p Polygon) ToString() string {
+	result := "Vertices:"
+	for i, v := range p.Vertices {
+		result += fmt.Sprintf(" %dth verticle: %s", i+1, v.ToString())
+	}
+	return result
 }

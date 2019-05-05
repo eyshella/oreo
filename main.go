@@ -10,12 +10,8 @@ import (
 
 func main() {
 	log.Println("App started!")
-	polygon := models.NewRegPolygon(3)
-	for _, v := range polygon.Vertices {
-		log.Printf("X:%f Y:%f", v.X, v.Y)
-	}
-	points, intersections := calculation.Walk(models.NewPoint(0, 0), polygon, 1000)
-	log.Printf("Intersection/Steps = %d", intersections/len(points))
+	polygon := models.NewRegPolygon(6)
+	calculation.Walk(models.NewPoint(0, 0), polygon, 100)
 	fmt.Println("Press Enter to close")
 	helpers.ReadFromConsole()
 	log.Println("App finished!")

@@ -25,7 +25,7 @@ func (p *Point) Subtract(c Point) {
 }
 
 func (p Point) Equal(c Point) bool {
-	return p.X == c.X && p.Y == c.Y
+	return NewVector(p, c).Length() < 0.00000001
 }
 
 func (p Point) ToString() string {
