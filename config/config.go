@@ -13,6 +13,7 @@ type Configuration struct {
 	ResultPath        string
 	LogsEnabled       bool
 	Alpha             string
+	GammaParam        float64
 }
 
 var Config *Configuration
