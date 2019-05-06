@@ -21,7 +21,7 @@ func Step(start models.Point, polygon models.Polygon, way int, alpha float64) (m
 		log.Printf("Step. Iteration params: verticleNumber: %d, currentDirection: %s, currentDistance: %f, remaining: %f, intersections: %d, isReflectionFromVerticle: %t, sectionFrom: %d, sectionTo: %d", verticleNumber, currentDirection.ToString(), currentDistance, remaining, intersections, isReflectionFromVerticle, sectionFrom, sectionTo)
 		if remaining <= currentDistance {
 			log.Printf("Step. Remaining distance <= current distance")
-			currentDirection = *currentDirection.MultiplyOnScalar(remaining / currentDistance)
+			currentDirection = currentDirection.MultiplyOnScalar(remaining / currentDistance)
 			remaining = 0
 		} else {
 			log.Printf("Step. Remaining distance > current distance")

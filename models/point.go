@@ -1,6 +1,9 @@
 package models
 
-import "fmt"
+import (
+	"fmt"
+	"oreo/config"
+)
 
 type Point struct {
 	X float64
@@ -25,7 +28,7 @@ func (p *Point) Subtract(c Point) {
 }
 
 func (p Point) Equal(c Point) bool {
-	return NewVector(p, c).Length() < 0.00000001
+	return NewVector(p, c).Length() < config.AppConfig.Accuracy
 }
 
 func (p Point) ToString() string {
