@@ -28,7 +28,7 @@ func (p *Point) Subtract(c Point) {
 }
 
 func (p Point) Equal(c Point) bool {
-	return NewVector(p, c).Length() < config.AppConfig.Accuracy
+	return NewVector(p, c).Length() < config.Config.Accuracy
 }
 
 func (p Point) ToString() string {

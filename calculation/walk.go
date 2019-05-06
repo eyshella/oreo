@@ -3,7 +3,9 @@ package calculation
 import (
 	"log"
 	"math/rand"
+	"oreo/config"
 	"oreo/models"
+	"strconv"
 	"time"
 )
 
@@ -61,17 +63,33 @@ func Walk(start models.Point, polygon models.Polygon, steps int) ([]models.Point
 	rand.Seed(time.Now().UnixNano())
 	point := start
 	points := make([]models.Point, 0)
-	points = append(points, point)
 	intersections := 0
 	for i := 0; i < steps; i++ {
-		alpha := 100.0
+		alpha := GetAlpha()
 		way := rand.Intn(len(polygon.Vertices))
 		log.Printf("Walk. Starting %dth step.", i+1)
-		point, stepIntersections := Step(point, polygon, way, alpha)
-		log.Printf("Walk. Finished %dth step. Point: %s, number of intersections: %d", i+1, point.ToString(), stepIntersections)
+		stepPoint, stepIntersections := Step(point, polygon, way, alpha)
+		log.Printf("Walk. Finished %dth step. Point: %s, number of intersections: %d", i+1, stepPoint.ToString(), stepIntersections)
+		point = stepPoint
 		intersections += stepIntersections
-		points = append(points, point)
+		points = append(points, stepPoint)
 	}
 	log.Printf("Walk finished. Number of points:%d, number of intersections: %d", len(points), intersections)
 	return points, intersections
+}
+
+func GetAlpha() float64 {
+	log.Printf("GetAlpha started")
+	var alpha float64
+	if config.Config.Alpha != "Gamma" {
+		var err error
+		alpha, err = strconv.ParseFloat(config.Config.Alpha, 64)
+		if err != nil {
+			log.Fatalf("GetAlpha Error: %s", err.Error())
+		}
+	} else {
+		alpha = Gamma()
+	}
+	log.Printf("GetAlpha finished. Return: %f", alpha)
+	return alpha
 }

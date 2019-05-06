@@ -1,13 +1,34 @@
 package config
 
-type Config struct {
-	Accuracy float64
+import (
+	"encoding/json"
+	"log"
+	"os"
+)
+
+type Configuration struct {
+	Accuracy          float64
+	Steps             int
+	NumberOfVerticles int
+	ResultPath        string
+	LogsEnabled       bool
+	Alpha             string
 }
 
-var AppConfig Config
+var Config *Configuration
 
-func init() {
-	AppConfig = Config{
-		Accuracy: 0.00001,
+func SetUpConfig(path string) {
+	log.Printf("OpenConfigFile started. path: %s", path)
+	file, err := os.Open(path)
+	if err != nil {
+		log.Fatalf("OpenConfigFile Error: %s", err.Error())
 	}
+	defer file.Close()
+	decoder := json.NewDecoder(file)
+	Config = &Configuration{}
+	err = decoder.Decode(Config)
+	if err != nil {
+		log.Fatalf("OpenConfigFile Error: %s", err.Error())
+	}
+	log.Printf("OpenConfigFile finished. Config: %v", Config)
 }

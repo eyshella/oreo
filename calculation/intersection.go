@@ -2,6 +2,7 @@ package calculation
 
 import (
 	"log"
+	"oreo/config"
 	"oreo/models"
 )
 
@@ -52,7 +53,7 @@ func FindIntersectionOfRayAndSection(ray models.Vector, section models.Vector) *
 	rayRatio := (-(section.From.X-ray.From.X)*(section.To.Y-section.From.Y) + (section.To.X-section.From.X)*(section.From.Y-ray.From.Y)) / determinant
 	sectionRatio := ((ray.To.X-ray.From.X)*(section.From.Y-ray.From.Y) - (section.From.X-ray.From.X)*(ray.To.Y-ray.From.Y)) / determinant
 	log.Printf("FindIntersectionOfRayAndSection. rayRatio: %f, sectionRatio: %f", rayRatio, sectionRatio)
-	if sectionRatio < 0 || sectionRatio > 1 || rayRatio <= 0 {
+	if sectionRatio+config.Config.Accuracy < 0 || sectionRatio-config.Config.Accuracy > 1 || rayRatio+config.Config.Accuracy <= 0 {
 		log.Printf("FindIntersectionOfRayAndSection finished. Return: nill")
 		return nil
 	}

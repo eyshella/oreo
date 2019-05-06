@@ -1,0 +1,8 @@
+{
+    "Accuracy":0.00001,
+    "Steps":100,
+    "NumberOfVerticles":6,
+    "ResultPath":"./result.csv",
+    "LogsEnabled":true,
+    "Alpha":"1.01"
+}
