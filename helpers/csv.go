@@ -8,14 +8,16 @@ import (
 	"os"
 )
 
-func WriteResultCsvFile(path string, points []models.Point) {
+func WriteResultCsvFile(path string, points []models.Point, alphas []float64, intersections []int) {
 	log.Printf("WriteResultCsvFile started. Path: %s", path)
 	result := make([][]string, 0)
-	result = append(result, []string{"X", "Y"})
-	for _, point := range points {
-		pointStr := make([]string, 2)
+	result = append(result, []string{"X", "Y", "Alpha", "Intersections"})
+	for i, point := range points {
+		pointStr := make([]string, 4)
 		pointStr[0] = fmt.Sprintf("%f", point.X)
 		pointStr[1] = fmt.Sprintf("%f", point.Y)
+		pointStr[2] = fmt.Sprintf("%f", alphas[i])
+		pointStr[3] = fmt.Sprintf("%d", intersections[i])
 		result = append(result, pointStr)
 	}
 	file, err := os.Create(path)

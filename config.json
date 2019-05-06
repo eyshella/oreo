@@ -1,9 +1,9 @@
 {
-    "Accuracy":0.00001,
-    "Steps":100000,
+    "Accuracy":0.0000005,
+    "Steps":1000000,
     "NumberOfVerticles":6,
     "ResultPath":"./result.csv",
     "LogsEnabled":true,
     "Alpha":"Gamma",
-    "GammaParam":0.5
+    "GammaParam":10
 }
