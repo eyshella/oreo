@@ -1,5 +1,6 @@
 package calculation
 
-func Gamma() float64 {
+func Gamma(k float64) float64 {
+
 	return 0
 }
