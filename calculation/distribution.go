@@ -7,7 +7,20 @@ import (
 
 func Gamma(k float64) float64 {
 	var ksi float64
-	if k < 1 {
+	if k == float64(int64(k)) && k <= 10.0 {
+		for i := 0; int64(i) < int64(k); i++ {
+			ksi -= math.Log(rand.Float64())
+		}
+	} else if k+0.5 == float64(int64(k+0.5)) && k <= 10.0 {
+		a := make([]float64, int64(k+1.5))
+		for i := 0; i < len(a); i++ {
+			a[i] = rand.Float64()
+		}
+		ksi = -math.Log(a[int64(k+0.5)-1]) * math.Pow(math.Cos(math.Pi*2*a[int64(k+1.5)-1]), 2)
+		for i := 1; int64(i) <= int64(k-0.5); i++ {
+			ksi -= math.Log(a[i-1])
+		}
+	} else if k < 1 {
 		c := 1 / k
 		d := math.Pow(k, k/(1-k)) * (1 - k)
 		Accept := false
@@ -35,8 +48,6 @@ func Gamma(k float64) float64 {
 				}
 			}
 		}
-	} else if k == 1 {
-		ksi = -math.Log(rand.Float64())
 	}
 	return ksi
 }
