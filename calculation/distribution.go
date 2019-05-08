@@ -23,12 +23,12 @@ func Gamma(k float64) float64 {
 	} else if k < 1 {
 		c := 1 / k
 		d := math.Pow(k, k/(1-k)) * (1 - k)
-		Accept := false
-		for !Accept {
+		NotAccept := true
+		for NotAccept {
 			Z := -math.Log(rand.Float64())
 			E := -math.Log(rand.Float64())
 			ksi = math.Pow(Z, c)
-			Accept = Z+E <= d+ksi
+			NotAccept = Z+E <= d+ksi
 		}
 	} else if k > 1 {
 		b := k - 1
