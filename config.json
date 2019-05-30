@@ -1,9 +1,10 @@
 {
-    "Accuracy":0.0000005,
-    "Steps":1000000,
-    "NumberOfVerticles":6,
-    "ResultPath":"./result.csv",
-    "LogsEnabled":true,
-    "Alpha":"Gamma",
-    "GammaParam":10
+    "Accuracy": 0.0000005,
+    "Steps": 100,
+    "NumberOfVerticles": 6,
+    "ResultPath": "./result.csv",
+    "LogsEnabled": false,
+    "Alpha": "Gamma",
+    "GammaShape": 10,
+    "GammaScale": 100
 }

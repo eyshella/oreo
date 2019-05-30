@@ -113,7 +113,7 @@ func GetAlpha() float64 {
 			log.Fatalf("GetAlpha Error: %s", err.Error())
 		}
 	} else {
-		alpha = Gamma(config.Config.GammaParam)
+		alpha = Gamma(config.Config.GammaShape, config.Config.GammaScale)
 	}
 	log.Printf("GetAlpha finished. Return: %f", alpha)
 	return alpha

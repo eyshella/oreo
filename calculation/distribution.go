@@ -5,24 +5,24 @@ import (
 	"math/rand"
 )
 
-func Gamma(k float64) float64 {
+func Gamma(shape float64, scale float64) float64 {
 	var ksi float64
-	if k == float64(int64(k)) && k <= 10.0 {
-		for i := 0; int64(i) < int64(k); i++ {
+	if shape == float64(int64(shape)) && shape <= 10.0 {
+		for i := 0; int64(i) < int64(shape); i++ {
 			ksi -= math.Log(rand.Float64())
 		}
-	} else if k+0.5 == float64(int64(k+0.5)) && k <= 10.0 {
-		a := make([]float64, int64(k+1.5))
+	} else if shape+0.5 == float64(int64(shape+0.5)) && shape <= 10.0 {
+		a := make([]float64, int64(shape+1.5))
 		for i := 0; i < len(a); i++ {
 			a[i] = rand.Float64()
 		}
-		ksi = -math.Log(a[int64(k+0.5)-1]) * math.Pow(math.Cos(math.Pi*2*a[int64(k+1.5)-1]), 2)
-		for i := 1; int64(i) <= int64(k-0.5); i++ {
+		ksi = -math.Log(a[int64(shape+0.5)-1]) * math.Pow(math.Cos(math.Pi*2*a[int64(shape+1.5)-1]), 2)
+		for i := 1; int64(i) <= int64(shape-0.5); i++ {
 			ksi -= math.Log(a[i-1])
 		}
-	} else if k < 1 {
-		c := 1 / k
-		d := math.Pow(k, k/(1-k)) * (1 - k)
+	} else if shape < 1 {
+		c := 1 / shape
+		d := math.Pow(shape, shape/(1-shape)) * (1 - shape)
 		NotAccept := true
 		for NotAccept {
 			Z := -math.Log(rand.Float64())
@@ -30,9 +30,9 @@ func Gamma(k float64) float64 {
 			ksi = math.Pow(Z, c)
 			NotAccept = Z+E <= d+ksi
 		}
-	} else if k > 1 {
-		b := k - 1
-		c := 3*k - 0.75
+	} else if shape > 1 {
+		b := shape - 1
+		c := 3*shape - 0.75
 		Accept := false
 		for !Accept {
 			U := rand.Float64()
@@ -49,5 +49,5 @@ func Gamma(k float64) float64 {
 			}
 		}
 	}
-	return ksi
+	return ksi * scale
 }
